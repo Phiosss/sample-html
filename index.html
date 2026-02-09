@@ -1,133 +1,420 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<!doctype html>
+<html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>#000000</title>
-    <link type="image/x-icon" rel="shortcut icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAHklEQVQ4T2NkYGD4z0ABYBw1gGE0DBhGw4BhWIQBAE5OEAELnjVHAAAAAElFTkSuQmCC">
-    <style>
-        :root {
-            --color: #000000;
-            --color-transparent: #00000022;
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>洪麗芬心理諮詢中心｜首頁 Demo</title>
+  <style>
+    :root {
+      --bg: #f7f4ee;
+      --text: #2b3a3f;
+      --muted: #5b6b70;
+      --accent: #2f3e36;
+      --line: #e6e2d9;
+      --card: #ffffff;
+      --radius: 16px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.7;
+    }
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+    header {
+      position: sticky; top: 0; z-index: 10;
+      backdrop-filter: blur(6px);
+      background: rgba(247, 244, 238, 0.9);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 0;
+    }
+    .brand { font-weight: 700; letter-spacing: 0.5px; }
+    .nav a { color: var(--text); text-decoration: none; margin-left: 16px; font-size: 14px; }
+    .lang { border: 1px solid var(--line); padding: 6px 10px; border-radius: 999px; font-size: 12px; }
 
-        ::selection {
-            background: var(--color-transparent);
-        }
+    .hero { padding: 56px 0; }
+    .hero-grid {
+      display: grid; gap: 36px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      align-items: center;
+    }
+    .eyebrow { color: var(--muted); font-size: 14px; letter-spacing: 1px; text-transform: uppercase; }
+    h1 { font-size: clamp(30px, 4.4vw, 52px); margin: 12px 0 16px; }
+    .hero-title {
+      display: inline-block;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .hero-title em {
+      font-style: normal;
+      background: linear-gradient(180deg, transparent 60%, rgba(47, 62, 54, 0.18) 60%);
+      padding: 0 4px;
+      border-radius: 6px;
+    }
+    .hero p { margin: 0 0 16px; }
+    .cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 10px 18px; border-radius: 999px; border: 1px solid var(--accent);
+      text-decoration: none; color: var(--accent); font-weight: 600;
+      background: transparent;
+    }
+    .btn.primary { background: var(--accent); color: #fff; }
+    .hero-card {
+      background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 28px; box-shadow: 0 10px 30px rgba(47, 62, 54, 0.08);
+    }
+    .hero-card h3 { margin: 0 0 8px; }
+    .hero-card ul { margin: 0; padding-left: 18px; }
 
-        html,
-        body {
-            background: var(--color);
-            height: 100%;
-            margin: 0;
-        }
+    .hero-image-wrap {
+      position: relative;
+      display: grid;
+      place-items: center;
+    }
+    .hero-image-shadow {
+      position: absolute;
+      inset: 14px 0 0 14px;
+      background: #efe1a6;
+      border-radius: calc(var(--radius) + 6px);
+      z-index: 0;
+    }
+    .hero-image-shadow::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background-image: radial-gradient(rgba(47, 62, 54, 0.2) 1px, transparent 1px);
+      background-size: 12px 12px;
+      opacity: 0.25;
+    }
+    .hero-image {
+      position: relative;
+      z-index: 1;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      overflow: hidden;
+      background: #efeae0;
+      min-height: 360px;
+      width: 100%;
+      display: grid;
+      place-items: center;
+      color: var(--muted);
+      font-size: 14px;
+      text-align: center;
+    }
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
 
-        body {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-        }
+    section {
+      padding: 56px 0;
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+    section > .wrap {
+      width: 100%;
+    }
+    .section-pattern::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(47, 62, 54, 0.06), transparent 45%),
+        radial-gradient(circle at 80% 10%, rgba(47, 62, 54, 0.05), transparent 50%),
+        radial-gradient(circle at 70% 80%, rgba(47, 62, 54, 0.04), transparent 55%);
+      pointer-events: none;
+    }
+    .section-pattern > .wrap {
+      position: relative;
+      z-index: 1;
+    }
+    .section-title { font-size: 22px; margin: 0 0 20px; }
+    .cards { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+    .card {
+      background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 20px;
+    }
+    .card h4 { margin: 0 0 8px; }
 
-        #color {
-            background: white;
-            color: var(--color);
-            font-size: 2.5rem;
-            font-weight: 300;
-            padding: 2.25rem 3rem;
-            font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, ubuntu, roboto, noto, segoe ui, arial, sans-serif;
-            cursor: text;
-        }
-    </style>
+    .quote {
+      font-size: 20px;
+      color: var(--accent);
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .image-grid {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .image-tile {
+      background: #efeae0;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      min-height: 180px;
+      display: grid;
+      place-items: center;
+    }
+    .image-tile img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .image-collage {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: 1.1fr 0.9fr;
+    }
+    .image-collage .image-tile {
+      min-height: 220px;
+    }
+    .image-collage .image-tile.tall {
+      min-height: 320px;
+    }
+
+    .intro-grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      align-items: stretch;
+    }
+    .intro-timeline {
+      display: grid;
+      gap: 18px;
+    }
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 18px;
+      align-items: start;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px;
+    }
+    .timeline-label {
+      font-size: 13px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .timeline-content h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      color: var(--accent);
+    }
+    .intro-panel {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 22px;
+    }
+    .intro-panel h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+    }
+    .intro-meta {
+      border-left: 3px solid var(--accent);
+      padding-left: 14px;
+      color: var(--muted);
+    }
+
+    .cta-band {
+      background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 28px 0 60px; color: var(--muted);
+    }
+    footer a { color: var(--text); text-decoration: none; }
+
+    @media (max-width: 640px) {
+      .wrap { padding: 0 16px; }
+      .nav { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .nav a { margin-left: 0; margin-right: 10px; }
+      .hero { padding-top: 40px; }
+      .hero-grid { grid-template-columns: 1fr; }
+      .cta-row { gap: 10px; }
+      .btn { width: 100%; }
+      .hero-image, .image-tile { min-height: 200px; }
+      .hero-image-shadow { inset: 10px 0 0 10px; }
+      section { padding: 40px 0; min-height: auto; }
+      .image-collage { grid-template-columns: 1fr; }
+      .timeline-item { grid-template-columns: 1fr; }
+      .intro-grid { grid-template-columns: 1fr; }
+      .cta-band { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
 </head>
-
 <body>
-    <p id="color">#000000</p>
-    <script>
-        function randomInt(min, max) {
-            return Math.floor(Math.random() * (max - min + 1) + min);
-        }
+  <header>
+    <div class="wrap nav">
+      <div class="brand">洪麗芬心理諮詢中心</div>
+      <div>
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Workshops</a>
+        <a href="#">Contact</a>
+        <span class="lang">EN / 中文</span>
+      </div>
+    </div>
+  </header>
 
-        function hslToHex(h, s, l) {
-            h /= 360;
-            s /= 100;
-            l /= 100;
-            var r = void 0,
-                g = void 0,
-                b = void 0;
-            if (s === 0) {
-                r = g = b = l; // achromatic
-            } else {
-                var hue2rgb = function hue2rgb(p, q, t) {
-                    if (t < 0) t += 1;
-                    if (t > 1) t -= 1;
-                    if (t < 1 / 6) return p + (q - p) * 6 * t;
-                    if (t < 1 / 2) return q;
-                    if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
-                    return p;
-                };
-                var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
-                var p = 2 * l - q;
-                r = hue2rgb(p, q, h + 1 / 3);
-                g = hue2rgb(p, q, h);
-                b = hue2rgb(p, q, h - 1 / 3);
-            }
-            var toHex = function toHex(x) {
-                var hex = Math.round(x * 255).toString(16);
-                return hex.length === 1 ? '0' + hex : hex;
-            };
-            return '#' + toHex(r) + toHex(g) + toHex(b);
-        }
+  <main>
+    <section class="hero section-pattern">
+      <div class="wrap hero-grid">
+        <div class="hero-image-wrap">
+          <div class="hero-image-shadow" aria-hidden="true"></div>
+          <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1766615984180-3326301f6297?auto=format&fit=crop&fm=jpg&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&ixlib=rb-4.1.0&q=60&w=1600" alt="自然光與植物的安靜空間" />
+          </div>
+        </div>
+        <div>
+          <h1 class="hero-title"><em>活在當下，</em></br><em>是時候尋求幫助</em></h1>
+          <p>每個人在生命的階段，都有可能面臨到人生的挑戰與抉擇、職業生涯的轉換或失業、身體疾病或精神疾病，例如：抑鬱症、焦慮症或思覺失調症等、失去親人或寵物、婚姻或家人關係的緊張…等。</p>
+          <p>可能您過去因應的方式讓您無法安然的活在當下，透過專業心理諮詢的協助，可以讓您找到心靈平靜的港灣與活在當下的平衡。</p>
+          <div class="hero-intro">
+            <p>洪麗芬是安省的註冊社工師，從事心理諮詢的工作已經超過30年以上。在台灣的東吳大學社工研究所畢業，在台灣是証照社會工作師；移民加拿大前，在台灣的立心慈善基金會擔任社會工作師及台灣神學院教會與社會系專任講師／心理輔導老師。移民加拿大後，長期在社會福利機構擔任社會工作師及華人社區/精神醫療體系擔任心理治療師。專長是個別心理諮詢（個人輔導、夫妻協談、家族治療）。另外，善長於團體治療及社區講座，包括提昇精神健康／心理韌性、親職講座…等</p>
+          </div>
+          <div class="cta-row">
+            <a class="btn" href="#">了解更多</a>
+            <a class="btn primary" href="#contact">聯絡我</a>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        window.onload = function () {
-            let stopProp = function (ev) {
-                ev.stopPropagation();
-            }
+    <section class="section-pattern">
+      <div class="wrap">
+        <h2 class="section-title">心理諮詢的好處</h2>
+        <div class="cards">
+          <div class="card">
+            <h4>保密、安全空間</h4>
+            <p>心理諮詢的過程是保密的，讓您可以有個隱密的空間來分享，讓您的故事能被聽、被理解、被懂。</p>
+          </div>
+          <div class="card">
+            <h4>科學化調適</h4>
+            <p>學習運用健康及科學的方式來調適身心狀況、婚姻關係、家人關係、社交關係、失去親人或寵物…等。</p>
+          </div>
+          <div class="card">
+            <h4>提升心理韌性</h4>
+            <p>面對過去的創傷或痛苦經驗，能經由心理治療的過程，從主觀的經驗到客觀的應對過程，能幫助您重新調整思緒、改變因應方式及做不同選擇，來增進心理彈性及心理韌性。</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-            var colorElement = document.getElementById("color");
-            colorElement.addEventListener("click", stopProp, false);
-            colorElement.addEventListener("mousedown", stopProp, false);
+    <section class="section-pattern">
+      <div class="wrap">
+        <h2 class="section-title">療癒空間與氛圍</h2>
+        <div class="image-collage">
+          <div class="image-tile tall">
+            <img src="https://images.unsplash.com/photo-1763690822336-5403829a3858?auto=format&fit=crop&fm=jpg&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&ixlib=rb-4.1.0&q=60&w=1600" alt="簡潔明亮的療癒空間" />
+          </div>
+          <div class="image-grid">
+            <div class="image-tile">
+              <img src="https://images.unsplash.com/photo-1766615984180-3326301f6297?auto=format&fit=crop&fm=jpg&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&ixlib=rb-4.1.0&q=60&w=1200" alt="窗光與留白" />
+            </div>
+            <div class="image-tile">
+              <img src="https://images.unsplash.com/photo-1769766407884-791f8136f239?auto=format&fit=crop&fm=jpg&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&ixlib=rb-4.1.0&q=60&w=1200" alt="書本與筆記" />
+            </div>
+            <div class="image-tile">
+              <img src="https://images.unsplash.com/photo-1753525765947-28c8abf2556b?auto=format&fit=crop&fm=jpg&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&ixlib=rb-4.1.0&q=60&w=1200" alt="柔和自然的色調" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-            var setFavicon = function (hex) {
-                var canvas = document.createElement('canvas');
-                canvas.width = 16;
-                canvas.height = 16;
-                var ctx = canvas.getContext('2d');
-                ctx.fillStyle = hex;
-                ctx.fillRect(0, 0, 16, 16);
-                document.getElementsByTagName('link')[0].href = canvas.toDataURL("image/x-icon");
-            }
+    <section class="section-pattern">
+      <div class="wrap">
+        <h2 class="section-title">活動預告</h2>
+        <div class="cards">
+          <div class="card">
+            <h4>單元講座</h4>
+            <p>時間：待公布</p>
+            <p>地點：待公布</p>
+          </div>
+          <div class="card">
+            <h4>課程講座內容（Series）</h4>
+            <p>時間：待公布</p>
+            <p>地點：待公布</p>
+          </div>
+          <div class="card">
+            <h4>成長團體 / 團體治療</h4>
+            <p>時間：待公布</p>
+            <p>地點：待公布</p>
+          </div>
+        </div>
+        <div class="cta-row" style="margin-top: 20px;">
+          <a class="btn" href="#contact">了解最新活動</a>
+          <a class="btn primary" href="mailto:lifenhungtherapy@yahoo.ca">電郵報名</a>
+        </div>
+      </div>
+    </section>
 
-            var setRandomColor = function setRandomColor() {
-                var h = void 0,
-                    s = void 0,
-                    l = void 0;
+    <section class="section-pattern">
+      <div class="wrap">
+        <div class="cta-band" id="contact">
+          <div>
+            <strong>歡迎聯絡，了解 15 分鐘免費諮詢</strong><br />
+            Email / WhatsApp / 電話皆可
+          </div>
+          <div class="cta-row">
+            <a class="btn" href="mailto:lifenhungtherapy@yahoo.ca">Email</a>
+            <a class="btn" href="https://wa.me/16472029831">WhatsApp</a>
+            <a class="btn primary" href="tel:16472029831">立即致電</a>
+          </div>
+        </div>
+        <div style="margin-top: 20px;">
+          <iframe
+            title="Google Map"
+            src="https://www.google.com/maps?q=3601%20Hwy%207%20East%2C%20Suite%201005%2C%20Markham%2C%20Ontario%2C%20Canada%20L3R%200M3&output=embed"
+            width="100%"
+            height="320"
+            style="border:0; border-radius: 12px;"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+      </div>
+    </section>
+  </main>
 
-                h = randomInt(0, 359);
-                s = randomInt(55, 75);
-                l = randomInt(40, 60);
-
-                document.documentElement.style.setProperty('--color', 'hsl(' + h + ', ' + s + '%, ' + l + '%)');
-                var hex = hslToHex(h, s, l);
-                document.title = hex;
-                colorElement.innerHTML = hex;
-                document.documentElement.style.setProperty('--color-transparent', hex + '22');
-
-                setFavicon(hex);
-            };
-            setRandomColor();
-
-            var body = document.getElementsByTagName("body")[0];
-            body.addEventListener("mousedown", function (ev) {
-                ev.preventDefault();
-            });
-            body.addEventListener("click", function () {
-                setRandomColor();
-            }, false);
-        };
-    </script>
+  <footer>
+    <div class="wrap">
+      3601 Hwy 7 East, Suite 1005, Markham, Ontario, Canada L3R 0M3<br />
+      Email: <a href="mailto:lifenhungtherapy@yahoo.ca">lifenhungtherapy@yahoo.ca</a> ｜ Phone: <a href="tel:16472029831">1-647-202-9831</a><br />
+      <a href="#">Privacy Policy</a> ｜ <a href="#">Disclaimer</a>
+    </div>
+  </footer>
 </body>
-
 </html>
+    .hero-intro {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px;
+      margin-top: 18px;
+    }
+    .hero-intro h3 { margin: 0 0 8px; font-size: 18px; color: var(--accent); }
+    .hero-intro p { margin: 0 0 6px; }
+    .hero-intro p:last-child { margin-bottom: 0; }
